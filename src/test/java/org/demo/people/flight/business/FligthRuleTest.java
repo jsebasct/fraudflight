@@ -12,8 +12,8 @@ public class FligthRuleTest {
 
     @Before
     public void before() {
-        r1 = new BlackListRule();
-        r2 = new RedListRule();
+        r1 = new CardBlackListRule();
+        r2 = new CountryRedListRule();
         r3 = new FlightDayRule();
     }
 
@@ -25,14 +25,12 @@ public class FligthRuleTest {
         for (FligthRule rule : flights) {
             counter = counter + (rule.isEnabled() ? 1 : 0);
         }
-        System.out.println("Enabled: " + counter);
+
         Assert.assertEquals(3, counter, 0.1);
     }
 
     @Test
     public void testEnabledRules() {
-        System.out.println("Test 2");
-
         r2.setEnabled(false);
         FligthRule[] flights = {r1, r2, r3};
 
@@ -40,8 +38,40 @@ public class FligthRuleTest {
         for (FligthRule rule : flights) {
             counter = counter + (rule.isEnabled() ? 1 : 0);
         }
-        System.out.println("Enabled: " + counter);
+
         Assert.assertEquals(2, counter, 0.1);
     }
 
+    @Test
+    public void testCheckAllEnabledRules() {
+        FligthRule[] flights = {r1, r2, r3};
+
+        //TODO che esto deberia algun funcion copada de lambda ?
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() ) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("Score: " + score);
+        Assert.assertEquals(170, score, 0.1);
+    }
+
+    @Test
+    public void testCheckEnabledRules() {
+        r2.setEnabled(false);
+        FligthRule[] flights = {r1, r2, r3};
+
+        //TODO che esto deberia algun funcion copada de lambda ?
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() ) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("Score: " + score);
+        Assert.assertEquals(130, score, 0.1);
+    }
 }

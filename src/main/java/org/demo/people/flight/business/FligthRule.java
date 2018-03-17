@@ -2,6 +2,7 @@ package org.demo.people.flight.business;
 
 public class FligthRule {
 
+    private int score;
     private boolean enabled;
 
     public FligthRule() {
@@ -14,5 +15,13 @@ public class FligthRule {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
