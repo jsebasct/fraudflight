@@ -1,7 +1,18 @@
 package org.demo.people.flight.business;
 
-public interface FligthRule {
+public class FligthRule {
 
-    boolean isEnabled();
+    private boolean enabled;
 
+    public FligthRule() {
+        this.enabled = true;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }
