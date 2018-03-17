@@ -1,6 +1,6 @@
 package org.demo.people.flight.business;
 
-public class FligthRule {
+public abstract class FligthRule {
 
     private int score;
     private boolean enabled;
@@ -24,4 +24,6 @@ public class FligthRule {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public abstract boolean evaluate(FlyTicket ticket);
 }

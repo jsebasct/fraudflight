@@ -74,4 +74,26 @@ public class FligthRuleTest {
         System.out.println("Score: " + score);
         Assert.assertEquals(130, score, 0.1);
     }
+
+
+    @Test
+    public void testCheckCardBlackRules() {
+        //r2.setEnabled(false);
+        FligthRule[] flights = {r1, r2, r3};
+
+        FlyTicket ticket = new FlyTicket();
+        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setDestinationCity("Guinea");
+
+        //TODO che esto deberia algun funcion copada de lambda ?
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket) ) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("Score: " + score);
+        Assert.assertEquals(140, score, 0.1);
+    }
 }
