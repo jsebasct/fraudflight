@@ -4,15 +4,25 @@ import java.time.LocalDate;
 
 public class FlyTicket {
 
-    private CreditCard creditCard;
     private Person[] passengers;
+    private CreditCard creditCard;
+
 
     private String destinationCity;
     private LocalDate flyDate;
-
-
     private int purchaseAmount;
 
+//● Usuario   comprador
+//● Fecha   de   compra
+//● Pasajero/s
+
+//● Titular   de   la   tarjeta   de   crédito
+//● Número   de   tarjeta   de   crédito
+
+//● Persona   a   facturar
+//● Destino   (puede   ser   ida   o   ida   y   vuelta)
+//● Fecha   de   Viaje   (si   es   sólo   ida   será   una   sola,   si   es   ida   y   vuelta   serán   dos)
+//● Importe   de   la   compra
 
     public String getDestinationCity() {
         return destinationCity;

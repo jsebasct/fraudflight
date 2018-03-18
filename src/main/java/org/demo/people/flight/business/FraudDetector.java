@@ -5,12 +5,12 @@ import org.demo.people.flight.business.rules.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FraudDetection {
+public class FraudDetector {
 
     private List<FligthRule> rules;
     private int umbral;
 
-    public FraudDetection() {
+    public FraudDetector() {
         rules = new ArrayList<>();
         loadDefaultRules();
     }
@@ -36,7 +36,7 @@ public class FraudDetection {
 
         for (FligthRule rule : rules) {
             if (rule.isEnabled() && rule.evaluate(ticket)) {
-//                System.out.println(rule.evaluate(ticket));
+                System.out.println(rule.getClass().getSimpleName() + " - " + rule.evaluate(ticket));
                 res += rule.getScore();
             }
         }

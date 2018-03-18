@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
-public class FraudDetectionTest {
+//2 pomodoros
+public class FraudDetectorTest {
 
     private Person[] passengers;
     private CreditCard creditCard;
@@ -38,7 +39,7 @@ public class FraudDetectionTest {
         ticket.setPassengers(passengers);
         ticket.setPurchaseAmount(60000);
 
-        FraudDetection detect = new FraudDetection();
+        FraudDetector detect = new FraudDetector();
 
         int score = detect.getScore(ticket);
         Assert.assertEquals(230, score, 0.1);
@@ -56,7 +57,7 @@ public class FraudDetectionTest {
         ticket.setPassengers(passengers);
         ticket.setPurchaseAmount(60000);
 
-        FraudDetection detect = new FraudDetection();
+        FraudDetector detect = new FraudDetector();
         detect.setUmbral(60);
         boolean fraud = detect.isFraud(ticket);
         Assert.assertTrue(fraud);
@@ -85,7 +86,7 @@ public class FraudDetectionTest {
         ticket.setPassengers(passengers);
         ticket.setPurchaseAmount(40000);
 
-        FraudDetection detect = new FraudDetection();
+        FraudDetector detect = new FraudDetector();
         detect.setUmbral(60);
 
         int score = detect.getScore(ticket);
