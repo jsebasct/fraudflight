@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class FligthRuleTest {
 
     FligthRule r1;
@@ -84,6 +87,7 @@ public class FligthRuleTest {
         FlyTicket ticket = new FlyTicket();
         ticket.setCreditCardNumber(1234_5678_9012_3456L);
         ticket.setDestinationCity("Guinea");
+        ticket.setFlyDate(LocalDate.of(2015, 3, 16));
 
         //TODO che esto deberia algun funcion copada de lambda ?
         int score = 0;
@@ -95,5 +99,27 @@ public class FligthRuleTest {
 
         System.out.println("Score: " + score);
         Assert.assertEquals(140, score, 0.1);
+    }
+
+    @Test
+    public void testCheckTrip24Rule() {
+        r1.setEnabled(false);
+        r2.setEnabled(false);
+        FligthRule[] flights = {r1, r2, r3};
+
+        FlyTicket ticket = new FlyTicket();
+        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setDestinationCity("Guinea");
+        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket)) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("Score24: " + score);
+        Assert.assertEquals(30, score, 0.1);
     }
 }
