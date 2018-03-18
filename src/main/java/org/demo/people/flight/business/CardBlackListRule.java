@@ -25,7 +25,7 @@ public class CardBlackListRule extends FligthRule {
     public boolean evaluate(FlyTicket ticket) {
         //TODO use lambdas
         for (Long stole : blackList) {
-            if (stole.equals(ticket.getCreditCardNumber())) {
+            if (stole.equals(ticket.getCreditCard().getCreditCardNumber())) {
                 return true;
             }
         }

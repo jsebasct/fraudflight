@@ -4,18 +4,15 @@ import java.time.LocalDate;
 
 public class FlyTicket {
 
-    private Long creditCardNumber;
+
+//    private String creditCardLastNameTitular;
+    private CreditCard creditCard;
+
     private String destinationCity;
     private LocalDate flyDate;
     private Passenger[] passengers;
 
-    public Long getCreditCardNumber() {
-        return creditCardNumber;
-    }
 
-    public void setCreditCardNumber(Long creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-    }
 
     public String getDestinationCity() {
         return destinationCity;
@@ -40,4 +37,21 @@ public class FlyTicket {
     public void setPassengers(Passenger[] passengers) {
         this.passengers = passengers;
     }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
+
+
+    //    public String getCreditCardLastNameTitular() {
+//        return creditCardLastNameTitular;
+//    }
+//
+//    public void setCreditCardLastNameTitular(String creditCardLastNameTitular) {
+//        this.creditCardLastNameTitular = creditCardLastNameTitular;
+//    }
 }

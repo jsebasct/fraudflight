@@ -14,12 +14,16 @@ public class FligthRuleTest {
     private FligthRule r3;
 
     private Passenger[] passengers;
+    private CreditCard creditCard;
 
     @Before
     public void before() {
         r1 = new CardBlackListRule();
         r2 = new CountryRedListRule();
         r3 = new FlightDayRule();
+
+        Passenger holder = new Passenger("Juan", "Perez");
+        creditCard = new CreditCard(1234_5678_9012_3456L, holder);
 
         Passenger p1 = new Passenger("Jhon", "Smith");
         Passenger p2 = new Passenger("Jane", "SmithSSSSS");
@@ -94,7 +98,7 @@ public class FligthRuleTest {
         FligthRule[] flights = {r1, r2, r3};
 
         FlyTicket ticket = new FlyTicket();
-        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setCreditCard(creditCard);
         ticket.setDestinationCity("Guinea");
         ticket.setFlyDate(LocalDate.of(2015, 3, 16));
 
@@ -117,7 +121,7 @@ public class FligthRuleTest {
         FligthRule[] flights = {r1, r2, r3};
 
         FlyTicket ticket = new FlyTicket();
-        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setCreditCard(creditCard);
         ticket.setDestinationCity("Guinea");
         //ticket.setFlyDate(LocalDate.of(2018, 3, 16));
         ticket.setFlyDate(LocalDate.now());
@@ -139,7 +143,7 @@ public class FligthRuleTest {
         FligthRule[] flights = {r1};
 
         FlyTicket ticket = new FlyTicket();
-        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setCreditCard(creditCard);
         ticket.setDestinationCity("Guinea");
         ticket.setFlyDate(LocalDate.of(2018, 3, 16));
         ticket.setPassengers(passengers);
@@ -154,4 +158,28 @@ public class FligthRuleTest {
         System.out.println("ScoreName: " + score);
         Assert.assertEquals(25, score, 0.1);
     }
+
+    @Test
+    public void testCheckCreditPassengerRule() {
+        FligthRule r1 = new CreditLastNameMatchRule();
+        FligthRule[] flights = {r1};
+
+        FlyTicket ticket = new FlyTicket();
+        ticket.setCreditCard(creditCard);
+        ticket.setDestinationCity("Guinea");
+        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+        ticket.setPassengers(passengers);
+
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket)) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("ScoreName: " + score);
+        Assert.assertEquals(20, score, 0.1);
+    }
+
+
 }
