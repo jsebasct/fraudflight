@@ -8,6 +8,7 @@ import java.util.List;
 public class FraudDetection {
 
     private List<FligthRule> rules;
+    private int umbral;
 
     public FraudDetection() {
         rules = new ArrayList<>();
@@ -41,5 +42,17 @@ public class FraudDetection {
         }
 
         return res;
+    }
+
+    public boolean isFraud(FlyTicket ticket) {
+        return getScore(ticket) >= getUmbral();
+    }
+
+    public int getUmbral() {
+        return umbral;
+    }
+
+    public void setUmbral(int umbral) {
+        this.umbral = umbral;
     }
 }
