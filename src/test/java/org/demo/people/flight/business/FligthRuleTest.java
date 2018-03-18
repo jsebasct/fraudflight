@@ -9,15 +9,24 @@ import java.time.temporal.ChronoUnit;
 
 public class FligthRuleTest {
 
-    FligthRule r1;
-    FligthRule r2;
-    FligthRule r3;
+    private FligthRule r1;
+    private FligthRule r2;
+    private FligthRule r3;
+
+    private Passenger[] passengers;
 
     @Before
     public void before() {
         r1 = new CardBlackListRule();
         r2 = new CountryRedListRule();
         r3 = new FlightDayRule();
+
+        Passenger p1 = new Passenger("Jhon", "Smith");
+        Passenger p2 = new Passenger("Jane", "SmithSSSSS");
+
+        passengers = new Passenger[2];
+        passengers[0] = p1;
+        passengers[1] = p2;
     }
 
     @Test
@@ -110,7 +119,8 @@ public class FligthRuleTest {
         FlyTicket ticket = new FlyTicket();
         ticket.setCreditCardNumber(1234_5678_9012_3456L);
         ticket.setDestinationCity("Guinea");
-        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+        //ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+        ticket.setFlyDate(LocalDate.now());
 
         int score = 0;
         for (FligthRule rule : flights) {
@@ -121,5 +131,27 @@ public class FligthRuleTest {
 
         System.out.println("Score24: " + score);
         Assert.assertEquals(30, score, 0.1);
+    }
+
+    @Test
+    public void testCheckLastNameRule() {
+        FligthRule r1 = new LastNameMatchRule();
+        FligthRule[] flights = {r1};
+
+        FlyTicket ticket = new FlyTicket();
+        ticket.setCreditCardNumber(1234_5678_9012_3456L);
+        ticket.setDestinationCity("Guinea");
+        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+        ticket.setPassengers(passengers);
+
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket)) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("ScoreName: " + score);
+        Assert.assertEquals(25, score, 0.1);
     }
 }

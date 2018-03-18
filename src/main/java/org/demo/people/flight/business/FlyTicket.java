@@ -7,6 +7,7 @@ public class FlyTicket {
     private Long creditCardNumber;
     private String destinationCity;
     private LocalDate flyDate;
+    private Passenger[] passengers;
 
     public Long getCreditCardNumber() {
         return creditCardNumber;
@@ -30,5 +31,13 @@ public class FlyTicket {
 
     public void setFlyDate(LocalDate flyDate) {
         this.flyDate = flyDate;
+    }
+
+    public Passenger[] getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Passenger[] passengers) {
+        this.passengers = passengers;
     }
 }
