@@ -1,5 +1,8 @@
-package org.demo.people.flight.business;
+package org.demo.people.flight.business.rules;
 
+import org.demo.people.flight.business.CreditCard;
+import org.demo.people.flight.business.FlyTicket;
+import org.demo.people.flight.business.Person;
 import org.demo.people.flight.business.rules.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -181,10 +184,6 @@ public class FligthRuleTest {
         FligthRule[] flights = {r1};
 
         FlyTicket ticket = new FlyTicket();
-//        ticket.setCreditCard(creditCard);
-//        ticket.setDestinationCity("Guinea");
-//        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
-//        ticket.setPassengers(passengers);
         ticket.setPurchaseAmount(60000);
 
         int score = 0;

@@ -1,7 +1,6 @@
 package org.demo.people.flight.business.rules;
 
 import org.demo.people.flight.business.FlyTicket;
-import org.demo.people.flight.business.rules.FligthRule;
 
 public class PurchaseLimitRule extends FligthRule {
 
