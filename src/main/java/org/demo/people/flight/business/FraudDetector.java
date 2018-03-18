@@ -1,10 +1,13 @@
 package org.demo.people.flight.business;
 
 import org.demo.people.flight.business.rules.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component
 public class FraudDetector {
 
     private List<FligthRule> rules;
@@ -16,12 +19,6 @@ public class FraudDetector {
     }
 
     private void loadDefaultRules() {
-//        FligthRule r1 = new CardBlackListRule();
-//        FligthRule r2 = new CountryRedListRule();
-//        FligthRule r3 = new FlightDayRule();
-//        FligthRule r4 = new LastNameMatchRule();
-//        FligthRule r5 = new CreditLastNameMatchRule();
-//        FligthRule r6 = new PurchaseLimitRule();
 
         rules.add(new CardBlackListRule());
         rules.add(new CountryRedListRule());
