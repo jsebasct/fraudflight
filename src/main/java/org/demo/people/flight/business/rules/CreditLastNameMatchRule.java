@@ -1,9 +1,11 @@
-package org.demo.people.flight.business;
+package org.demo.people.flight.business.rules;
+
+import org.demo.people.flight.business.FlyTicket;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class CreditLastNameMatchRule extends FligthRule {
+
     public CreditLastNameMatchRule() {
         setScore(20);
     }
@@ -14,17 +16,6 @@ public class CreditLastNameMatchRule extends FligthRule {
         String lastNameHolder = ticket.getCreditCard().getHolder().getLastName();
         boolean match = Arrays.stream(ticket.getPassengers()).anyMatch(pass -> pass.getLastName().equals(lastNameHolder));
         return !match;
-//        boolean coincedence = false;
-//
-//        for (Passenger passenger : ticket.getPassengers()) {
-//            if (passenger.getLastName().equals(lastNameHolder)) {
-//                coincedence = true;
-//                break;
-//            }
-//        }
-//        return !coincedence;
-
-
 
     }
 }

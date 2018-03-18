@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public class FlyTicket {
 
-//    private String creditCardLastNameTitular;
     private CreditCard creditCard;
+    private Person[] passengers;
 
     private String destinationCity;
     private LocalDate flyDate;
-    private Passenger[] passengers;
+
 
     private int purchaseAmount;
 
@@ -30,11 +30,11 @@ public class FlyTicket {
         this.flyDate = flyDate;
     }
 
-    public Passenger[] getPassengers() {
+    public Person[] getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Passenger[] passengers) {
+    public void setPassengers(Person[] passengers) {
         this.passengers = passengers;
     }
 

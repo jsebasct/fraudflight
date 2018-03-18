@@ -3,13 +3,12 @@ package org.demo.people.flight.business;
 public class CreditCard {
 
     private Long creditCardNumber;
-    private Passenger holder;
+    private Person holder;
 
     public CreditCard() {
-
     }
 
-    public CreditCard(Long creditCardNumber, Passenger holder) {
+    public CreditCard(Long creditCardNumber, Person holder) {
         this.creditCardNumber = creditCardNumber;
         this.holder = holder;
     }
@@ -22,11 +21,11 @@ public class CreditCard {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public Passenger getHolder() {
+    public Person getHolder() {
         return holder;
     }
 
-    public void setHolder(Passenger holder) {
+    public void setHolder(Person holder) {
         this.holder = holder;
     }
 }

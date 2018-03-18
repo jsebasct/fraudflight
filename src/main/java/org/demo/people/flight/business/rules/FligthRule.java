@@ -1,4 +1,6 @@
-package org.demo.people.flight.business;
+package org.demo.people.flight.business.rules;
+
+import org.demo.people.flight.business.FlyTicket;
 
 public abstract class FligthRule {
 

@@ -1,11 +1,11 @@
 package org.demo.people.flight.business;
 
+import org.demo.people.flight.business.rules.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class FligthRuleTest {
 
@@ -13,7 +13,7 @@ public class FligthRuleTest {
     private FligthRule r2;
     private FligthRule r3;
 
-    private Passenger[] passengers;
+    private Person[] passengers;
     private CreditCard creditCard;
 
     @Before
@@ -22,13 +22,13 @@ public class FligthRuleTest {
         r2 = new CountryRedListRule();
         r3 = new FlightDayRule();
 
-        Passenger holder = new Passenger("Juan", "Perez");
+        Person holder = new Person("Juan", "Perez");
         creditCard = new CreditCard(1234_5678_9012_3456L, holder);
 
-        Passenger p1 = new Passenger("Jhon", "Smith");
-        Passenger p2 = new Passenger("Jane", "SmithSSSSS");
+        Person p1 = new Person("Jhon", "Smith");
+        Person p2 = new Person("Jane", "SmithSSSSS");
 
-        passengers = new Passenger[2];
+        passengers = new Person[2];
         passengers[0] = p1;
         passengers[1] = p2;
     }
@@ -70,7 +70,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("Score: " + score);
         Assert.assertEquals(170, score, 0.1);
     }
 
@@ -87,7 +86,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("Score: " + score);
         Assert.assertEquals(130, score, 0.1);
     }
 
@@ -110,7 +108,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("Score: " + score);
         Assert.assertEquals(140, score, 0.1);
     }
 
@@ -133,7 +130,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("Score24: " + score);
         Assert.assertEquals(30, score, 0.1);
     }
 
@@ -155,7 +151,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("ScoreName: " + score);
         Assert.assertEquals(25, score, 0.1);
     }
 
@@ -177,7 +172,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("ScoreName: " + score);
         Assert.assertEquals(20, score, 0.1);
     }
 
@@ -200,7 +194,6 @@ public class FligthRuleTest {
             }
         }
 
-        System.out.println("ScoreName: " + score);
         Assert.assertEquals(15, score, 0.1);
     }
 }

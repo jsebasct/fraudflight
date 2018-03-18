@@ -1,4 +1,7 @@
-package org.demo.people.flight.business;
+package org.demo.people.flight.business.rules;
+
+import org.demo.people.flight.business.FlyTicket;
+import org.demo.people.flight.business.Person;
 
 public class LastNameMatchRule extends FligthRule {
 
@@ -11,12 +14,12 @@ public class LastNameMatchRule extends FligthRule {
         //TODO refactorizar passengers evalueate last name should be done in ticket ?
 
         String lastNameTemplate = "";
-        Passenger[] passengers = ticket.getPassengers();
+        Person[] passengers = ticket.getPassengers();
         if (passengers.length >= 1) {
             lastNameTemplate = passengers[0].getLastName();
         }
         if (passengers.length > 1) {
-            for (Passenger p : passengers) {
+            for (Person p : passengers) {
                 if (!p.getLastName().equals(lastNameTemplate)) {
                     return true;
                 }

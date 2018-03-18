@@ -1,14 +1,14 @@
 package org.demo.people.flight.business;
 
-public class Passenger {
+public class Person {
+
     private String name;
     private String lastName;
 
-    public Passenger() {
-
+    public Person() {
     }
 
-    public Passenger(String name, String lastName) {
+    public Person(String name, String lastName) {
         this.name = name;
         this.lastName = lastName;
     }
