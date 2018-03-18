@@ -181,5 +181,26 @@ public class FligthRuleTest {
         Assert.assertEquals(20, score, 0.1);
     }
 
+    @Test
+    public void testCheckFlyImportRule() {
+        FligthRule r1 = new PurchaseLimitRule();
+        FligthRule[] flights = {r1};
 
+        FlyTicket ticket = new FlyTicket();
+//        ticket.setCreditCard(creditCard);
+//        ticket.setDestinationCity("Guinea");
+//        ticket.setFlyDate(LocalDate.of(2018, 3, 16));
+//        ticket.setPassengers(passengers);
+        ticket.setPurchaseAmount(60000);
+
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket)) {
+                score += rule.getScore();
+            }
+        }
+
+        System.out.println("ScoreName: " + score);
+        Assert.assertEquals(15, score, 0.1);
+    }
 }
