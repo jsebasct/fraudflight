@@ -63,4 +63,24 @@ public class FlyTicket {
     public void setPurchaseAmount(int purchaseAmount) {
         this.purchaseAmount = purchaseAmount;
     }
+
+    private boolean matchIndex(int index, String lastName) {
+        if (index == 0) {
+            return passengers[index].getLastName().equals(lastName);
+        } else {
+            return passengers[index].getLastName().equals(lastName) && matchIndex(index - 1, lastName);
+        }
+    }
+
+    public boolean matchPassengersLastName() {
+
+        String lastNameTemplate = "";
+
+        if (passengers.length >= 1) {
+            lastNameTemplate = passengers[0].getLastName();
+        }
+
+        boolean res = lastNameTemplate == "" ? true : matchIndex(passengers.length - 1, lastNameTemplate);
+        return res;
+    }
 }

@@ -65,7 +65,6 @@ public class FligthRuleTest {
     public void testCheckAllEnabledRules() {
         FligthRule[] flights = {r1, r2, r3};
 
-        //TODO che esto deberia algun funcion copada de lambda ?
         int score = 0;
         for (FligthRule rule : flights) {
             if (rule.isEnabled() ) {
@@ -81,7 +80,6 @@ public class FligthRuleTest {
         r2.setEnabled(false);
         FligthRule[] flights = {r1, r2, r3};
 
-        //TODO che esto deberia algun funcion copada de lambda ?
         int score = 0;
         for (FligthRule rule : flights) {
             if (rule.isEnabled() ) {
@@ -96,16 +94,15 @@ public class FligthRuleTest {
     @Test
     public void testCheckCardBlackRules() {
         //r2.setEnabled(false);
-        FligthRule[] flights = {r1, r2, r3};
+        FligthRule[] rules = {r1, r2, r3};
 
         FlyTicket ticket = new FlyTicket();
         ticket.setCreditCard(creditCard);
         ticket.setDestinationCity("Guinea");
         ticket.setFlyDate(LocalDate.of(2015, 3, 16));
 
-        //TODO che esto deberia algun funcion copada de lambda ?
         int score = 0;
-        for (FligthRule rule : flights) {
+        for (FligthRule rule : rules) {
             if (rule.isEnabled() && rule.evaluate(ticket) ) {
                 score += rule.getScore();
             }
@@ -155,6 +152,32 @@ public class FligthRuleTest {
         }
 
         Assert.assertEquals(25, score, 0.1);
+    }
+
+    @Test
+    public void testCheckLastNameRule2() {
+        FligthRule r1 = new LastNameMatchRule();
+        FligthRule[] flights = {r1};
+
+        Person p1 = new Person("Jhon", "Perez");
+        Person p2 = new Person("Jane", "Perez");
+
+        Person[] passengers = new Person[3];
+        passengers[0] = p1;
+        passengers[1] = p2;
+        passengers[2] = new Person("Juliana", "Perez");;
+
+        FlyTicket ticket = new FlyTicket();
+        ticket.setPassengers(passengers);
+
+        int score = 0;
+        for (FligthRule rule : flights) {
+            if (rule.isEnabled() && rule.evaluate(ticket)) {
+                score += rule.getScore();
+            }
+        }
+
+        Assert.assertEquals(0, score, 0.1);
     }
 
     @Test

@@ -2,18 +2,17 @@ package org.demo.people.flight.business.rules;
 
 import org.demo.people.flight.business.FlyTicket;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CardBlackListRule extends FligthRule {
 
-    //TODO since list allows duplicated elements its ok to use this DS to hold my cards ?
-    private List<Long> blackList;
+    private Set<Long> blackList;
 
     public CardBlackListRule() {
         this.setScore(100);
-        blackList = new ArrayList<>();
-        //TODO esta bueno llamar a un constructor en el constructor ?
+        blackList = new HashSet<>();
+
         initBlackList();
     }
 
@@ -25,12 +24,6 @@ public class CardBlackListRule extends FligthRule {
 
     @Override
     public boolean evaluate(FlyTicket ticket) {
-        //TODO use lambdas
-        for (Long stole : blackList) {
-            if (stole.equals(ticket.getCreditCard().getCreditCardNumber())) {
-                return true;
-            }
-        }
-        return false;
+        return blackList.contains(ticket.getCreditCard().getCreditCardNumber());
     }
 }

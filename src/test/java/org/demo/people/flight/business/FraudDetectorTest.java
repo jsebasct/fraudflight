@@ -1,5 +1,6 @@
 package org.demo.people.flight.business;
 
+import org.demo.people.flight.business.rules.CardBlackListRule;
 import org.demo.people.flight.business.rules.FligthRule;
 import org.demo.people.flight.business.rules.PurchaseLimitRule;
 import org.junit.Assert;
@@ -95,5 +96,38 @@ public class FraudDetectorTest {
 
         boolean fraud = detect.isFraud(ticket);
         Assert.assertFalse(fraud);
+    }
+
+    @Test
+    public void testEnableRules() {
+        FraudDetector detector = new FraudDetector();
+
+        detector.getRules().clear();
+        detector.addRule(new CardBlackListRule());
+        detector.addRule(new CardBlackListRule());
+
+
+        Assert.assertTrue(detector.getRules().size() == 1);
+
+        CardBlackListRule ruleToDisable = new CardBlackListRule();
+        String ruleName = ruleToDisable.getClass().getSimpleName();
+        FligthRule disabledRule = detector.disableRule(ruleName);
+
+//        List<FligthRule> res = detector.getRules().entrySet()
+//                .stream()
+//                .filter(map -> ruleName.equals(map.getKey()))
+//                .collect(Collectors.toList());
+
+//        detector.getRules().keySet().
+
+        //assertThat(res.values(), contains("June", "July"));
+
+//        List<FligthRule> rules = detector.getRules();
+//
+//        for (FligthRule rule : rules) {
+//            System.out.println("-->" + rule.toString());
+//        }
+
+        Assert.assertFalse(disabledRule.isEnabled());
     }
 }
