@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Map;
 
+
+
 @RestController
 class FraudController {
 
     @Autowired
     private FraudDetector detector;
 
-    //TODO why cant this be a GET ? cant send the body !
-    //TODO the response cant be sent as naked integer ?
+    //PENDING the response cant be sent as naked integer ?
     @RequestMapping(value = "/ticket/score", method = RequestMethod.POST)
-//    @ResponseBody
     public Integer score(@RequestBody FlyTicket ticket) {
         Integer res = -1;
 
@@ -31,10 +31,18 @@ class FraudController {
         return res;
     }
 
-    //TODO why cant this be a GET ? cant send the body !
+//    @RequestMapping(value = "/ticket/score", method = RequestMethod.GET)
+//    public Integer score2(@RequestParam(value = "ticket") FlyTicket ticket) {
+//        Integer res = -1;
+//
+//        if (ticket != null) {
+//            res = detector.getScore(ticket);
+//        }
+//        return res;
+//    }
+
     //TODO the response cant be sent as naked bool ?
     @RequestMapping(value="/ticket/fraud", method = RequestMethod.POST)
-    //@ResponseBody
     public boolean fraud(@RequestBody FlyTicket ticket) {
 
         boolean res = false;
@@ -61,7 +69,6 @@ class FraudController {
 
 
     @RequestMapping(value="/ticket/sample", method = RequestMethod.GET)
-//    @ResponseBody
     public FlyTicket getTicket() {
 
         Person holder = new Person("Juan", "Valdez");
@@ -86,14 +93,12 @@ class FraudController {
 
 
     @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
-//    @ResponseBody
     public Map<String, FligthRule> getRules() {
         return detector.getRules();
     }
 
     //TODO disable rules API
     @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
-//    @ResponseBody
     public FligthRule disableRule(@PathVariable("id") String keyRule) {
         if (keyRule != null && !keyRule.isEmpty()) {
             return detector.disableRule(keyRule);

@@ -3,16 +3,14 @@ package org.demo.people.flight.business;
 import org.demo.people.flight.business.rules.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Component
 public class FraudDetector {
 
-//    private List<FligthRule> rules;
     private Map<String, FligthRule> rules;
     private int umbral;
 
@@ -28,26 +26,12 @@ public class FraudDetector {
 
     private void loadDefaultRules() {
 
-//        rules.put(CardBlackListRule.getClass().getSimpleName(), new CardBlackListRule());
-//        rules.add(new CountryRedListRule());
-//        rules.add(new FlightDayRule());
-//        rules.add(new LastNameMatchRule());
-//        rules.add(new CreditLastNameMatchRule());
-//        rules.add(new PurchaseLimitRule());
-
         this.addRule(new CardBlackListRule());
         this.addRule(new CountryRedListRule());
         this.addRule(new FlightDayRule());
         this.addRule(new LastNameMatchRule());
         this.addRule(new CreditLastNameMatchRule());
         this.addRule(new PurchaseLimitRule());
-
-//        rules.add(new CardBlackListRule());
-//        rules.add(new CountryRedListRule());
-//        rules.add(new FlightDayRule());
-//        rules.add(new LastNameMatchRule());
-//        rules.add(new CreditLastNameMatchRule());
-//        rules.add(new PurchaseLimitRule());
     }
 
     public int getScore(FlyTicket ticket) {
@@ -76,22 +60,28 @@ public class FraudDetector {
         this.umbral = umbral;
     }
 
-//    public List<FligthRule> getRules() {
-//        return rules;
-//    }
-//
-//    public void setRules(List<FligthRule> rules) {
-//        this.rules = rules;
-//    }
 
 
-    //TODO should generate a copy before
+
+
+    //TODO PENDING should generate a copy before
     public Map<String, FligthRule> getRules() {
-        return rules;
+//        Map<String, FligthRule> mapCopy = rules.entrySet()
+//                .stream()
+//                .collect(Collectors.toMap(e -> e.getKey(), e -> new FligthRule(e.getValue())));
+//        return mapCopy;
+        return new HashMap<>(rules);
     }
 
     public void setRules(Map<String, FligthRule> rules) {
         this.rules = rules;
+    }
+
+    public boolean allRulesEnabled() {
+        long count = rules.entrySet().stream()
+                .filter(i->i.getValue().isEnabled())
+                .count();
+        return count == rules.size();
     }
 
     public static void main(String[] args) {

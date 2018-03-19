@@ -11,6 +11,11 @@ public abstract class FligthRule {
         this.enabled = true;
     }
 
+//    public FligthRule(FligthRule rule) {
+//        score = rule.getScore();
+//        enabled = rule.isEnabled();
+//    }
+
     public boolean isEnabled() {
         return enabled;
     }
