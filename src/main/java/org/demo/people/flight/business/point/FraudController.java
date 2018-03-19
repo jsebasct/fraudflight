@@ -4,22 +4,24 @@ import org.demo.people.flight.business.CreditCard;
 import org.demo.people.flight.business.FlyTicket;
 import org.demo.people.flight.business.FraudDetector;
 import org.demo.people.flight.business.Person;
+import org.demo.people.flight.business.rules.FligthRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RestController
 class FraudController {
 
     @Autowired
-    private FraudDetector detector;// = new FraudDetector();
+    private FraudDetector detector;
 
     //TODO why cant this be a GET ? cant send the body !
     //TODO the response cant be sent as naked integer ?
     @RequestMapping(value = "/ticket/score", method = RequestMethod.POST)
-    @ResponseBody
+//    @ResponseBody
     public Integer score(@RequestBody FlyTicket ticket) {
         Integer res = -1;
 
@@ -59,7 +61,7 @@ class FraudController {
 
 
     @RequestMapping(value="/ticket/sample", method = RequestMethod.GET)
-    @ResponseBody
+//    @ResponseBody
     public FlyTicket getTicket() {
 
         Person holder = new Person("Juan", "Valdez");
@@ -82,4 +84,20 @@ class FraudController {
         return ticket;
     }
 
+
+    @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
+//    @ResponseBody
+    public Map<String, FligthRule> getRules() {
+        return detector.getRules();
+    }
+
+    //TODO disable rules API
+    @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
+//    @ResponseBody
+    public FligthRule disableRule(@PathVariable("id") String keyRule) {
+        if (keyRule != null && !keyRule.isEmpty()) {
+            return detector.disableRule(keyRule);
+        }
+        return null;
+    }
 }
