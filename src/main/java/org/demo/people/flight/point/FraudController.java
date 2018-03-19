@@ -1,4 +1,4 @@
-package org.demo.people.flight.business.point;
+package org.demo.people.flight.point;
 
 import org.demo.people.flight.business.CreditCard;
 import org.demo.people.flight.business.FlyTicket;
