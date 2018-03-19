@@ -10,15 +10,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Map;
-
 
 
 @RestController
 class FraudController {
 
     @Autowired
-    private FraudDetector detector;
+    private FraudDetector fraudDetector;
+
+    @GetMapping("/")
+    public Map<String, Object> greeting() {
+        return Collections.singletonMap("message", "Hello World");
+    }
 
     //PENDING the response cant be sent as naked integer ?
     @RequestMapping(value = "/ticket/score", method = RequestMethod.POST)
@@ -26,7 +31,7 @@ class FraudController {
         Integer res = -1;
 
         if (ticket != null) {
-            res = detector.getScore(ticket);
+            res = fraudDetector.getScore(ticket);
         }
         return res;
     }
@@ -36,7 +41,7 @@ class FraudController {
 //        Integer res = -1;
 //
 //        if (ticket != null) {
-//            res = detector.getScore(ticket);
+//            res = fraudDetector.getScore(ticket);
 //        }
 //        return res;
 //    }
@@ -48,8 +53,8 @@ class FraudController {
         boolean res = false;
 
         if (ticket != null) {
-            //FraudDetector detector = new FraudDetector();
-            res = detector.isFraud(ticket);
+            //FraudDetector fraudDetector = new FraudDetector();
+            res = fraudDetector.isFraud(ticket);
         }
 
         return res;
@@ -58,13 +63,13 @@ class FraudController {
     @RequestMapping(value="/fraud/detector/umbral", method = RequestMethod.PATCH)
     @ResponseStatus(HttpStatus.OK)
     public void umbral(@RequestBody FraudDetector umbral) {
-        //detector.setUmbral(umbral);
-        detector.setUmbral(umbral.getUmbral());
+        //fraudDetector.setUmbral(umbral);
+        fraudDetector.setUmbral(umbral.getUmbral());
     }
 
     @RequestMapping(value="/fraud/detector/umbral", method = RequestMethod.GET)
     public int umbral() {
-        return detector.getUmbral();
+        return fraudDetector.getUmbral();
     }
 
 
@@ -94,14 +99,14 @@ class FraudController {
 
     @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
     public Map<String, FligthRule> getRules() {
-        return detector.getRules();
+        return fraudDetector.getRules();
     }
 
     //TODO disable rules API
     @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
     public FligthRule disableRule(@PathVariable("id") String keyRule) {
         if (keyRule != null && !keyRule.isEmpty()) {
-            return detector.disableRule(keyRule);
+            return fraudDetector.disableRule(keyRule);
         }
         return null;
     }

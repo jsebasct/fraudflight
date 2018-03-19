@@ -84,10 +84,6 @@ public class FraudDetector {
         return count == rules.size();
     }
 
-    public static void main(String[] args) {
-        new FraudDetector();
-    }
-
     //TODO should return a copy
     public FligthRule disableRule(String ruleName) {
         FligthRule ruleDisabled = rules.get(ruleName);
