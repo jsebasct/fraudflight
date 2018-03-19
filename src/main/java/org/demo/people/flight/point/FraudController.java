@@ -53,7 +53,6 @@ class FraudController {
         boolean res = false;
 
         if (ticket != null) {
-            //FraudDetector fraudDetector = new FraudDetector();
             res = fraudDetector.isFraud(ticket);
         }
 
@@ -96,13 +95,11 @@ class FraudController {
         return ticket;
     }
 
-
     @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
     public Map<String, FligthRule> getRules() {
         return fraudDetector.getRules();
     }
 
-    //TODO disable rules API
     @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
     public FligthRule disableRule(@PathVariable("id") String keyRule) {
         if (keyRule != null && !keyRule.isEmpty()) {

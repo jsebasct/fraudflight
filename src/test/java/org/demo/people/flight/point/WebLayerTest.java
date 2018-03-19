@@ -34,4 +34,13 @@ public class WebLayerTest {
                 .andDo(document("home"));
     }
 
+    @Test
+    public void shouldReturnRules() throws Exception {
+        mockMvc.perform(get("/fraud/detector/rules"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                //.andExpect(content().string(containsString("Hello World")))
+                .andDo(document("rules"));
+    }
+
 }

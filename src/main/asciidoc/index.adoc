@@ -1,6 +1,6 @@
-= Getting Started With Spring REST Docs
+= Documentación para poder utilizar el API de evaluación
 
-This is an example output for a service running at http://localhost:8080:
+Este es un ejemplo del servicio corriendo en http://localhost:8080:
 
 .request
 include::{snippets}/home/http-request.adoc[]
@@ -8,4 +8,13 @@ include::{snippets}/home/http-request.adoc[]
 .response
 include::{snippets}/home/http-response.adoc[]
 
-As you can see the format is very simple, and in fact you always get the same message.
+Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/rules
+
+.request
+include::{snippets}/rules/http-request.adoc[]
+
+.response
+include::{snippets}/rules/http-response.adoc[]
+
+.response-body
+include::{snippets}/rules/response-body.adoc[]
