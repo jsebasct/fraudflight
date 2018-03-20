@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Map;
 
 
@@ -19,11 +18,6 @@ class FraudController {
 
     @Autowired
     private FraudDetector fraudDetector;
-
-    @GetMapping("/")
-    public Map<String, Object> greeting() {
-        return Collections.singletonMap("message", "Hello World");
-    }
 
     //PENDING the response cant be sent as naked integer ?
     @RequestMapping(value = "/ticket/score", method = RequestMethod.POST)
@@ -36,17 +30,8 @@ class FraudController {
         return res;
     }
 
-//    @RequestMapping(value = "/ticket/score", method = RequestMethod.GET)
-//    public Integer score2(@RequestParam(value = "ticket") FlyTicket ticket) {
-//        Integer res = -1;
-//
-//        if (ticket != null) {
-//            res = fraudDetector.getScore(ticket);
-//        }
-//        return res;
-//    }
-
     //TODO the response cant be sent as naked bool ?
+    //TODO if the ticket is null ? exception ?
     @RequestMapping(value="/ticket/fraud", method = RequestMethod.POST)
     public boolean fraud(@RequestBody FlyTicket ticket) {
 
@@ -62,7 +47,6 @@ class FraudController {
     @RequestMapping(value="/fraud/detector/umbral", method = RequestMethod.PATCH)
     @ResponseStatus(HttpStatus.OK)
     public void umbral(@RequestBody FraudDetector umbral) {
-        //fraudDetector.setUmbral(umbral);
         fraudDetector.setUmbral(umbral.getUmbral());
     }
 
@@ -71,6 +55,18 @@ class FraudController {
         return fraudDetector.getUmbral();
     }
 
+    @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
+    public Map<String, FligthRule> getRules() {
+        return fraudDetector.getRules();
+    }
+
+    @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
+    public FligthRule disableRule(@PathVariable("id") String keyRule) {
+        if (keyRule != null && !keyRule.isEmpty()) {
+            return fraudDetector.disableRule(keyRule);
+        }
+        return null;
+    }
 
     @RequestMapping(value="/ticket/sample", method = RequestMethod.GET)
     public FlyTicket getTicket() {
@@ -93,18 +89,5 @@ class FraudController {
         ticket.setPurchaseAmount(40000);
 
         return ticket;
-    }
-
-    @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
-    public Map<String, FligthRule> getRules() {
-        return fraudDetector.getRules();
-    }
-
-    @RequestMapping(value = "/fraud/detector/rules/{id}", method = RequestMethod.PATCH)
-    public FligthRule disableRule(@PathVariable("id") String keyRule) {
-        if (keyRule != null && !keyRule.isEmpty()) {
-            return fraudDetector.disableRule(keyRule);
-        }
-        return null;
     }
 }

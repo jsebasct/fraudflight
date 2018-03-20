@@ -1,14 +1,46 @@
 = Documentación para poder utilizar el API de evaluación
 
-Este es un ejemplo del servicio corriendo en http://localhost:8080:
+Este es un ejemplo del servicio de Score corriendo en http://localhost:8080/ticket/score
 
 .request
-include::{snippets}/home/http-request.adoc[]
+include::{snippets}/score/http-request.adoc[]
 
 .response
-include::{snippets}/home/http-response.adoc[]
+include::{snippets}/score/http-response.adoc[]
 
-Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/rules
+
+
+
+Este es un ejemplo del servicio de Fraude corriendo en http://localhost:8080/ticket/fraud
+
+.request
+include::{snippets}/fraud/http-request.adoc[]
+
+.response
+include::{snippets}/fraud/http-response.adoc[]
+
+
+
+Este es un ejemplo del servicio para conocer el umbral corriendo en http://localhost:8080/fraud/detector/umbral
+
+.request
+include::{snippets}/umbral/http-request.adoc[]
+
+.response
+include::{snippets}/umbral/http-response.adoc[]
+
+
+
+Este es un ejemplo del servicio modificar el umbral corriendo en http://localhost:8080/fraud/detector/umbral
+
+.request
+include::{snippets}/umbral_patch/http-request.adoc[]
+
+.response
+include::{snippets}/umbral_patch/http-response.adoc[]
+
+
+Este es un ejemplo del servicio que te permite conocer las reglas corriendo en http://localhost:8080/fraud/detector/rules
 
 .request
 include::{snippets}/rules/http-request.adoc[]
@@ -18,28 +50,3 @@ include::{snippets}/rules/http-response.adoc[]
 
 .response-body
 include::{snippets}/rules/response-body.adoc[]
-
-
-Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/umbral
-
-.request
-include::{snippets}/umbral/http-request.adoc[]
-
-.response
-include::{snippets}/umbral/http-response.adoc[]
-
-Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/umbral
-
-.request
-include::{snippets}/umbral_patch/http-request.adoc[]
-
-.response
-include::{snippets}/umbral_patch/http-response.adoc[]
-
-Este es un ejemplo del servicio corriendo en http://localhost:8080/ticket/score
-
-.request
-include::{snippets}/score/http-request.adoc[]
-
-.response
-include::{snippets}/score/http-response.adoc[]

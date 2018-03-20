@@ -28,14 +28,6 @@ public class WebLayerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void shouldHelloWorld() throws Exception {
-        mockMvc.perform(get("/"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello World")))
-                .andDo(document("home"));
-    }
 
     @Test
     public void testGetRules() throws Exception {
@@ -57,9 +49,6 @@ public class WebLayerTest {
 
     @Test
     public void testPostUmbral() throws Exception {
-
-//        FraudDetector detect = new FraudDetector();
-//        detect.setUmbral(60);
 
         mockMvc.perform(
             patch("/fraud/detector/umbral")
@@ -114,9 +103,51 @@ public class WebLayerTest {
         )
                 .andDo(print())
                 .andExpect(status().isOk())
-                //.andExpect(content().string(containsString("Hello World")))
                 .andExpect(content().string(containsString("200")))
                 .andDo(document("score"));
+    }
+
+    @Test
+    public void testPostFraudulenta() throws Exception {
+
+        String jsonTicket = "{\"passengers\":[{\"name\":\"Jhon\",\"lastName\":\"Smith\"},{\"name\":\"Jane\",\"lastName\":\"SmithSSSSS\"}],\"creditCard\":{\"creditCardNumber\":1234567890123456,\"holder\":{\"name\":\"Juan\",\"lastName\":\"Perez\"}},\"destinationCity\":\"Guinea\",\"flyDate\":\"2018-03-18\",\"purchaseAmount\":60000}";
+
+        mockMvc.perform(
+                post("/ticket/fraud")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonTicket)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("true")))
+                .andDo(document("fraud"));
+    }
+
+    @Test
+    public void testPostNoFraudulenta() throws Exception {
+
+        //setting umbral
+        mockMvc.perform(
+                patch("/fraud/detector/umbral")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"umbral\": 60}")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("umbral_patch"));
+
+        // testing ticket
+        String jsonTicket = "{\"passengers\":[{\"name\":\"Jhon\",\"lastName\":\"Smith\"},{\"name\":\"Jane\",\"lastName\":\"Valdez\"}],\"creditCard\":{\"creditCardNumber\":9234567890123456,\"holder\":{\"name\":\"Juan\",\"lastName\":\"Valdez\"}},\"destinationCity\":\"Bolivia\",\"flyDate\":\"2018-03-18\",\"purchaseAmount\":40000}";
+
+        mockMvc.perform(
+                post("/ticket/fraud")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonTicket)
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("false")))
+                .andDo(document("fraud"));
     }
 
 }
