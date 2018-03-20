@@ -18,3 +18,20 @@ include::{snippets}/rules/http-response.adoc[]
 
 .response-body
 include::{snippets}/rules/response-body.adoc[]
+
+
+Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/umbral
+
+.request
+include::{snippets}/umbral/http-request.adoc[]
+
+.response
+include::{snippets}/umbral/http-response.adoc[]
+
+Este es un ejemplo del servicio corriendo en http://localhost:8080/fraud/detector/umbral
+
+.request
+include::{snippets}/umbral_patch/http-request.adoc[]
+
+.response
+include::{snippets}/umbral_patch/http-response.adoc[]

@@ -147,7 +147,7 @@ public class FraudDetectorTest {
 //        FligthRule disabledRule = detector.disableRule(ruleName);
     }
 
-    //TODO PENDING
+    //TODO PENDING modify rules with no side-effects
 //    @Test
     public void testModifyRules() {
         FraudDetector detector = new FraudDetector();

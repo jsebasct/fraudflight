@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 @Component
 public class FraudDetector {
 
-    private Map<String, FligthRule> rules;
+    //TODO remove transient
+    private transient Map<String, FligthRule> rules;
     private int umbral;
 
     public FraudDetector() {
