@@ -14,9 +14,6 @@ public class FlightDayRule extends FligthRule {
     @Override
     public boolean evaluate(FlyTicket ticket) {
         long hoursUntil = ticket.getFlyDate().until(LocalDate.now(), ChronoUnit.DAYS);
-        if (hoursUntil <= 1) {
-            return true;
-        }
-        return false;
+        return hoursUntil <= 1;
     }
 }

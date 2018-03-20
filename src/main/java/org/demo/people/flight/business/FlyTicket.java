@@ -2,27 +2,20 @@ package org.demo.people.flight.business;
 
 import java.time.LocalDate;
 
+// Usuario   comprador
+// Fecha   de   compra
+// Persona   a   facturar
+// Destino   (puede   ser   ida   o   ida   y   vuelta)
+// Fecha   de   Viaje  (si es sólo ida   será   una   sola,   si   es   ida y vuelta serán dos)
 public class FlyTicket {
 
     private Person[] passengers;
-
-    //● Titular   de   la   tarjeta   de   crédito
-    //● Número   de   tarjeta   de   crédito
     private CreditCard creditCard;
-
 
     private String destinationCity;
     private LocalDate flyDate;
 
-    //● Importe   de   la   compra
     private int purchaseAmount;
-
-//● Usuario   comprador
-//● Fecha   de   compra
-//● Pasajero/s
-//● Persona   a   facturar
-//● Destino   (puede   ser   ida   o   ida   y   vuelta)
-//● Fecha   de   Viaje  (si es sólo ida   será   una   sola,   si   es   ida y vuelta serán dos)
 
 
     public String getDestinationCity() {
@@ -81,7 +74,7 @@ public class FlyTicket {
             lastNameTemplate = passengers[0].getLastName();
         }
 
-        boolean res = lastNameTemplate == "" ? true : matchIndex(passengers.length - 1, lastNameTemplate);
+        boolean res = lastNameTemplate == "" || matchIndex(passengers.length - 1, lastNameTemplate);
         return res;
     }
 }

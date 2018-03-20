@@ -165,7 +165,7 @@ public class FligthRuleTest {
         Person[] passengers = new Person[3];
         passengers[0] = p1;
         passengers[1] = p2;
-        passengers[2] = new Person("Juliana", "Perez");;
+        passengers[2] = new Person("Juliana", "Perez");
 
         FlyTicket ticket = new FlyTicket();
         ticket.setPassengers(passengers);
