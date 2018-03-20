@@ -35,3 +35,11 @@ include::{snippets}/umbral_patch/http-request.adoc[]
 
 .response
 include::{snippets}/umbral_patch/http-response.adoc[]
+
+Este es un ejemplo del servicio corriendo en http://localhost:8080/ticket/score
+
+.request
+include::{snippets}/score/http-request.adoc[]
+
+.response
+include::{snippets}/score/http-response.adoc[]
