@@ -56,7 +56,7 @@ public class WebLayerTest {
                 .content("{\"umbral\": 70}")
         )
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().is2xxSuccessful())
                 .andDo(document("umbral_patch"));
     }
 
@@ -133,7 +133,7 @@ public class WebLayerTest {
                         .content("{\"umbral\": 60}")
         )
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().is2xxSuccessful())
                 .andDo(document("umbral_patch"));
 
         // testing ticket

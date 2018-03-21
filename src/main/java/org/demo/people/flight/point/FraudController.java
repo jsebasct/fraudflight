@@ -7,6 +7,7 @@ import org.demo.people.flight.business.Person;
 import org.demo.people.flight.business.rules.FligthRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,45 +15,47 @@ import java.util.Map;
 
 
 @RestController
+//@RequestMapping("api")
 class FraudController {
 
     @Autowired
     private FraudDetector fraudDetector;
 
-    //PENDING the response cant be sent as naked integer ?
     @RequestMapping(value = "/ticket/score", method = RequestMethod.POST)
-    public Integer score(@RequestBody FlyTicket ticket) {
-        Integer res = -1;
+    public ResponseEntity<Integer> score(@RequestBody FlyTicket ticket) {
 
-        if (ticket != null) {
-            res = fraudDetector.getScore(ticket);
+        if (ticket == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return res;
+
+        Integer res = fraudDetector.getScore(ticket);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    //TODO the response cant be sent as naked bool ?
-    //TODO if the ticket is null ? exception ?
     @RequestMapping(value="/ticket/fraud", method = RequestMethod.POST)
-    public boolean fraud(@RequestBody FlyTicket ticket) {
+    public ResponseEntity<Boolean> fraud(@RequestBody FlyTicket ticket) {
 
-        boolean res = false;
-
-        if (ticket != null) {
-            res = fraudDetector.isFraud(ticket);
+        if (ticket == null) {
+            return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
         }
 
-        return res;
+        Boolean res = fraudDetector.isFraud(ticket);
+        return new ResponseEntity<Boolean>(res, HttpStatus.OK);
     }
 
     @RequestMapping(value="/fraud/detector/umbral", method = RequestMethod.PATCH)
     @ResponseStatus(HttpStatus.OK)
-    public void umbral(@RequestBody FraudDetector umbral) {
+    public ResponseEntity<Void> umbral(@RequestBody FraudDetector umbral) {
+        if (umbral == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         fraudDetector.setUmbral(umbral.getUmbral());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value="/fraud/detector/umbral", method = RequestMethod.GET)
-    public int umbral() {
-        return fraudDetector.getUmbral();
+    public ResponseEntity<Integer> umbral() {
+        return new ResponseEntity<>(fraudDetector.getUmbral(), HttpStatus.OK);
     }
 
     @RequestMapping(value="/fraud/detector/rules", method = RequestMethod.GET)
